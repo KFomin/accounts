@@ -1,0 +1,11 @@
+{
+  "accounts": [
+    { "id": 1, "name": "Main Account", "iban": "DE89370400440532013000", "balance": 1500 },
+    { "id": 2, "name": "Savings Account", "iban": "DE89370400440532013001", "balance": 5000 }
+  ],
+  "transactions": [
+    { "id": 1, "accountId": 1, "date": "2025-05-01", "description": "Grocery Store", "amount": 50, "type": "debit" },
+    { "id": 2, "accountId": 1, "date": "2025-05-02", "description": "Salary", "amount": 2000, "type": "credit" },
+    { "id": 3, "accountId": 2, "date": "2025-05-03", "description": "Transfer", "amount": 500, "type": "credit" }
+  ]
+}
