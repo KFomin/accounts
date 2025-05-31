@@ -7,7 +7,7 @@ import {
   MatTable,
   MatTableDataSource,
 } from '@angular/material/table';
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatCardTitleGroup} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {CurrencyPipe} from '@angular/common';
 import {Account, ApiService} from '../api.service';
@@ -31,7 +31,8 @@ import {Account, ApiService} from '../api.service';
     MatRow,
     MatHeaderRowDef,
     MatRowDef,
-    CurrencyPipe
+    CurrencyPipe,
+    MatCardTitleGroup
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -50,12 +51,13 @@ export class DashboardComponent implements OnInit {
     this.apiService.accounts.subscribe(accounts => {
       this.dataSource.data = accounts;
     })
-    this.apiService.getAccounts().subscribe((data) => {
-      this.apiService.accounts.next(data);
-    });
   }
 
   viewTransactions(accountId: number): void {
     this.router.navigate(['/transactions', accountId]);
+  }
+
+  transferMoneyClicked(){
+    this.router.navigate(['/transfer']);
   }
 }

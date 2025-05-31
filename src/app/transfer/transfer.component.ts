@@ -1,12 +1,22 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatOption, MatSelect} from '@angular/material/select';
 import {MatButton} from '@angular/material/button';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
-import {CurrencyPipe, NgForOf} from '@angular/common';
+import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
+import {Account, ApiService} from '../api.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-transfer',
@@ -23,34 +33,72 @@ import {CurrencyPipe, NgForOf} from '@angular/common';
     CurrencyPipe,
     NgForOf,
     MatInput,
-    MatButton
+    MatButton,
+    NgIf,
   ],
   templateUrl: './transfer.component.html',
   styleUrl: './transfer.component.scss'
 })
-export class TransferComponent {
+export class TransferComponent implements OnInit {
   transferForm: FormGroup;
-  accounts = [
-    {id: 1, name: 'Main Account', balance: 1500},
-    {id: 2, name: 'Savings Account', balance: 5000},
-  ];
+  accounts: Account[] = [];
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private apiService: ApiService,
+    private router: Router
+  ) {
     this.transferForm = this.fb.group({
-      fromAccount: ['', Validators.required],
-      toAccount: ['', Validators.required],
-      amount: ['', [Validators.required, Validators.min(0)]],
+      fromAccount: [null, Validators.required],
+      toAccount: [null, Validators.required],
+      amount: [0, [Validators.required, Validators.min(0)]],
       description: ['', Validators.required]
+    }, {
+      validators: this.accountsNotEqualValidator()
     });
   }
 
   ngOnInit(): void {
+    this.apiService.accounts.subscribe(accounts => {
+      this.accounts = accounts;
+    })
+  }
+
+  homelinkClicked() {
+    this.router.navigate(['/']);
   }
 
   onSubmit(): void {
     if (this.transferForm.valid) {
-      this.snackBar.open('Transfer successful!', 'Close', {duration: 3000});
-      this.transferForm.reset();
+      const fromAccount = this.transferForm.get('fromAccount')?.value;
+      const toAccount = this.transferForm.get('toAccount')?.value;
+      const amount = this.transferForm.get('amount')?.value;
+      const description = this.transferForm.get('description')?.value;
+
+      if (fromAccount && toAccount && amount && description) {
+        this.apiService.doTransfer(fromAccount, toAccount, amount, description)
+          .subscribe((accounts) => {
+            this.apiService.accounts.next(accounts);
+            this.snackBar.open('Transfer successful!', 'Close', {duration: 3000});
+            this.transferForm.reset();
+          });
+      }
     }
+  }
+
+  private accountsNotEqualValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const fromAccount = control.get('fromAccount')?.value;
+      const toAccount = control.get('toAccount')?.value;
+
+      if (fromAccount && toAccount && fromAccount === toAccount) {
+        return {
+          accountsEqual: true
+        };
+      }
+
+      return null;
+    };
   }
 }

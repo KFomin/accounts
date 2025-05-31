@@ -1,11 +1,106 @@
 {
   "accounts": [
-    { "id": 1, "name": "Main Account", "iban": "DE89370400440532013000", "balance": 1500 },
-    { "id": 2, "name": "Savings Account", "iban": "DE89370400440532013001", "balance": 5000 }
+    {
+      "id": "1",
+      "name": "Main Account",
+      "iban": "DE89370400440532013000",
+      "balance": 2225
+    },
+    {
+      "id": "2",
+      "name": "Savings Account",
+      "iban": "DE89370400440532013001",
+      "balance": 3033
+    }
   ],
   "transactions": [
-    { "id": 1, "accountId": 1, "date": "2025-05-01", "description": "Grocery Store", "amount": 50, "type": "debit" },
-    { "id": 2, "accountId": 1, "date": "2025-05-02", "description": "Salary", "amount": 2000, "type": "credit" },
-    { "id": 3, "accountId": 2, "date": "2025-05-03", "description": "Transfer", "amount": 500, "type": "credit" }
+    {
+      "id": "1",
+      "accountId": 1,
+      "date": "2025-05-01",
+      "description": "Grocery Store",
+      "amount": 50,
+      "type": "debit"
+    },
+    {
+      "id": "2",
+      "accountId": 1,
+      "date": "2025-05-02",
+      "description": "Salary",
+      "amount": 2000,
+      "type": "credit"
+    },
+    {
+      "id": "3",
+      "accountId": 2,
+      "date": "2025-05-03",
+      "description": "Transfer",
+      "amount": 500,
+      "type": "credit"
+    },
+    {
+      "id": "a188",
+      "date": "2025-05-31T23:27:35.054Z",
+      "description": "фыафыафыа",
+      "amount": 500,
+      "accountId": "1",
+      "type": "debit"
+    },
+    {
+      "id": "c07c",
+      "date": "2025-05-31T23:27:35.054Z",
+      "description": "фыафыафыа",
+      "amount": 500,
+      "accountId": "2",
+      "type": "credit"
+    },
+    {
+      "id": "201e",
+      "date": "2025-05-31T23:37:16.565Z",
+      "description": "afasf",
+      "amount": 775,
+      "accountId": "1",
+      "type": "debit"
+    },
+    {
+      "id": "0b3a",
+      "date": "2025-05-31T23:37:16.565Z",
+      "description": "afasf",
+      "amount": 775,
+      "accountId": "2",
+      "type": "credit"
+    },
+    {
+      "id": "d895",
+      "date": "2025-05-31T23:46:00.658Z",
+      "description": "afs",
+      "amount": 1242,
+      "accountId": "2",
+      "type": "debit"
+    },
+    {
+      "id": "c404",
+      "date": "2025-05-31T23:46:00.658Z",
+      "description": "afs",
+      "amount": 1242,
+      "accountId": "1",
+      "type": "credit"
+    },
+    {
+      "id": "4d01",
+      "date": "2025-05-31T23:47:14.413Z",
+      "description": "money",
+      "amount": 2000,
+      "accountId": "2",
+      "type": "debit"
+    },
+    {
+      "id": "46e3",
+      "date": "2025-05-31T23:47:14.413Z",
+      "description": "money",
+      "amount": 2000,
+      "accountId": "1",
+      "type": "credit"
+    }
   ]
 }
