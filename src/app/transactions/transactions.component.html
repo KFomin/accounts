@@ -1,6 +1,9 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Transactions</mat-card-title>
+    <mat-card-title-group>
+      <button mat-flat-button (click)="homelinkClicked()">Home</button>
+      <mat-card-title>Transactions</mat-card-title>
+    </mat-card-title-group>
   </mat-card-header>
   <mat-card-content>
     <table mat-table [dataSource]="dataSource">

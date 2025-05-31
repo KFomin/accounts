@@ -29,6 +29,10 @@ export class ApiService {
     return this.http.get<Account[]>(`${this.apiUrl}/accounts`);
   }
 
+  getAccount(accountId: number): Observable<Account> {
+    return this.http.get<Account>(`${this.apiUrl}/accounts?id=${accountId}`);
+  }
+
   getTransactions(accountId: number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.apiUrl}/transactions?accountId=${accountId}`);
   }

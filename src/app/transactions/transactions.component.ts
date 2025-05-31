@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -8,11 +8,12 @@ import {
   MatTableDataSource,
 } from '@angular/material/table';
 import {
-  MatCard, MatCardContent, MatCardHeader, MatCardTitle
+  MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatCardTitleGroup
 } from '@angular/material/card';
 import {CurrencyPipe, DatePipe} from '@angular/common';
 import {ApiService, Transaction} from '../api.service';
 import {BehaviorSubject} from 'rxjs';
+import {MatButton} from '@angular/material/button';
 
 
 @Component({
@@ -33,7 +34,9 @@ import {BehaviorSubject} from 'rxjs';
     MatHeaderRow,
     MatHeaderRowDef,
     MatRowDef,
-    MatRow
+    MatRow,
+    MatCardTitleGroup,
+    MatButton
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss'
@@ -44,6 +47,7 @@ export class TransactionsComponent implements OnInit {
   dataSource = new MatTableDataSource<Transaction>([]);
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private apiService: ApiService,
   ) {
@@ -55,9 +59,15 @@ export class TransactionsComponent implements OnInit {
     })
     const accountId = Number(this.route.snapshot.paramMap.get('accountId'));
     if (accountId) {
-      this.apiService.getTransactions(accountId).subscribe(transactions => {
-        this.transactions.next(transactions);
-      })
+      this.apiService.getTransactions(accountId)
+        .subscribe((transactions) => {
+            this.transactions.next(transactions);
+          }
+        )
     }
+  }
+
+  homelinkClicked() {
+    this.router.navigate(['/']);
   }
 }
