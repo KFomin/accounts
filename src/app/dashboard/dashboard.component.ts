@@ -38,7 +38,7 @@ import {Account, ApiService} from '../api.service';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'iban', 'balance', 'actions'];
+  displayedColumns: string[] = ['name', 'iban', 'balance', 'transactions', 'transfer'];
   dataSource = new MatTableDataSource<Account>([]);
 
   constructor(
