@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {
   MatCell, MatCellDef,
@@ -8,9 +8,11 @@ import {
   MatTableDataSource,
 } from '@angular/material/table';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatCardTitleGroup} from '@angular/material/card';
-import {MatButton} from '@angular/material/button';
-import {CurrencyPipe} from '@angular/common';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {AsyncPipe, CurrencyPipe, NgIf} from '@angular/common';
 import {Account, ApiService} from '../api.service';
+import {BehaviorSubject} from 'rxjs';
+import {MatIcon} from '@angular/material/icon';
 
 
 @Component({
@@ -32,14 +34,23 @@ import {Account, ApiService} from '../api.service';
     MatHeaderRowDef,
     MatRowDef,
     CurrencyPipe,
-    MatCardTitleGroup
+    MatCardTitleGroup,
+    AsyncPipe,
+    MatIcon,
+    MatIconButton,
+    NgIf,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'iban', 'balance', 'transactions', 'transfer'];
   dataSource = new MatTableDataSource<Account>([]);
+  viewType: BehaviorSubject<'mobile' | 'desktop'> = new BehaviorSubject<'mobile' | 'desktop'>('desktop')
+
+  desktopColumns: string[] = ['name', 'iban', 'balance', 'transactions', 'transfer'];
+
+  mobileColumns: string[] = ['iban', 'balance', 'expand'];
+  expandedAccount: Account | null = null;
 
   constructor(
     private router: Router,
@@ -47,7 +58,27 @@ export class DashboardComponent implements OnInit {
   ) {
   }
 
+  isExpanded(account: Account) {
+    return this.expandedAccount?.id === account.id;
+  }
+
+  toggleExpanded(account: Account) {
+    this.expandedAccount = this.isExpanded(account) ? null : account;
+  }
+
+  @HostListener('window:resize', ['$event.target.innerWidth'])
+  onResize(width: number) {
+    if (width > 1279) {
+      this.viewType.next('desktop');
+      return;
+    }
+    this.viewType.next('mobile');
+  }
+
   ngOnInit(): void {
+    if (this.window.innerWidth < 1280) {
+      this.viewType.next('mobile');
+    }
     this.apiService.accounts.subscribe(accounts => {
       this.dataSource.data = accounts;
     })
@@ -58,6 +89,9 @@ export class DashboardComponent implements OnInit {
   }
 
   transferMoneyClicked(accountId: number): void {
-    this.router.navigate(['/transfer'],{queryParams: {fromAccountId: accountId}});
+    this.router.navigate(['/transfer'], {queryParams: {fromAccountId: accountId}});
   }
+
+  protected readonly document = document;
+  protected readonly window = window;
 }
