@@ -9,7 +9,7 @@ import {
 } from '@angular/material/table';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatCardTitleGroup} from '@angular/material/card';
 import {MatButton, MatIconButton} from '@angular/material/button';
-import {AsyncPipe, CurrencyPipe, NgIf} from '@angular/common';
+import {AsyncPipe, CurrencyPipe, NgIf, NgTemplateOutlet} from '@angular/common';
 import {Account, ApiService} from '../api.service';
 import {BehaviorSubject} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
@@ -39,6 +39,7 @@ import {MatIcon} from '@angular/material/icon';
     MatIcon,
     MatIconButton,
     NgIf,
+    NgTemplateOutlet,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'

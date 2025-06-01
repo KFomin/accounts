@@ -4,13 +4,19 @@
       "id": "1",
       "name": "Main Account",
       "iban": "DE89370400440532013000",
-      "balance": 2414
+      "balance": 1202
     },
     {
       "id": "2",
       "name": "Savings Account",
       "iban": "DE89370400440532013001",
-      "balance": 2844
+      "balance": 4056
+    },
+    {
+      "id": "3",
+      "name": "Travel",
+      "iban": "DE89376742440532133401",
+      "balance": 666
     }
   ],
   "transactions": [
@@ -133,6 +139,22 @@
       "amount": 123,
       "accountId": "2",
       "type": "credit"
+    },
+    {
+      "id": "406e",
+      "date": "2025-06-01T15:38:39.332Z",
+      "description": "asfasfasfasf",
+      "amount": 1212,
+      "accountId": "2",
+      "type": "credit"
+    },
+    {
+      "id": "ded1",
+      "date": "2025-06-01T15:38:39.332Z",
+      "description": "asfasfasfasf",
+      "amount": 1212,
+      "accountId": "1",
+      "type": "debit"
     }
   ]
 }
