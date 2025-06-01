@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/transactions', accountId]);
   }
 
-  transferMoneyClicked(){
-    this.router.navigate(['/transfer']);
+  transferMoneyClicked(accountId: number): void {
+    this.router.navigate(['/transfer'],{queryParams: {fromAccountId: accountId}});
   }
 }

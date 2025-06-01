@@ -16,7 +16,7 @@ import {MatButton} from '@angular/material/button';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {Account, ApiService} from '../api.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-transfer',
@@ -42,12 +42,14 @@ import {Router} from '@angular/router';
 export class TransferComponent implements OnInit {
   transferForm: FormGroup;
   accounts: Account[] = [];
+  paramAccountId: number | undefined;
 
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.transferForm = this.fb.group({
       fromAccount: [null, Validators.required],
@@ -60,8 +62,22 @@ export class TransferComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+      this.paramAccountId = params['fromAccountId'];
+    })
+
     this.apiService.accounts.subscribe(accounts => {
       this.accounts = accounts;
+      console.log('1:', this.paramAccountId);
+      console.log('2', this.accounts)
+      let preselectedFrom = this.accounts.find(a => a.id === this.paramAccountId);
+      console.log('3', preselectedFrom)
+      if (preselectedFrom) {
+        this.transferForm.controls['fromAccount'].setValue(preselectedFrom);
+
+      }
+      console.log('4', this.transferForm.controls['fromAccount'].value);
     })
   }
 
@@ -81,6 +97,7 @@ export class TransferComponent implements OnInit {
           .subscribe((accounts) => {
             this.apiService.accounts.next(accounts);
             this.snackBar.open('Transfer successful!', 'Close', {duration: 3000});
+            this.router.navigate(['/']);
             this.transferForm.reset();
           });
       }
