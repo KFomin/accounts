@@ -57,7 +57,9 @@ export class TransactionsComponent implements OnInit {
     this.transactions.subscribe((transactions: Transaction[]) => {
       this.dataSource.data = transactions;
     })
+
     const accountId = Number(this.route.snapshot.paramMap.get('accountId'));
+
     if (accountId) {
       this.apiService.getTransactions(accountId)
         .subscribe((transactions) => {

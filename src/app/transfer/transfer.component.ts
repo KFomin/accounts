@@ -66,21 +66,19 @@ export class TransferComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       this.paramAccountId = params['fromAccountId'];
     })
 
     this.apiService.accounts.subscribe(accounts => {
       this.accounts = accounts;
-      console.log('1:', this.paramAccountId);
-      console.log('2', this.accounts)
+
       let preselectedFrom = this.accounts.find(a => a.id === this.paramAccountId);
-      console.log('3', preselectedFrom)
+
+      // select "from" account by queryParam
       if (preselectedFrom) {
         this.transferForm.controls['fromAccount'].setValue(preselectedFrom);
-
       }
-      console.log('4', this.transferForm.controls['fromAccount'].value);
+
     })
   }
 
@@ -88,6 +86,7 @@ export class TransferComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  // here I take all the values from form to immitate backend behaviour in next steps
   onSubmit(): void {
     if (this.transferForm.valid) {
       const fromAccount = this.transferForm.get('fromAccount')?.value;
@@ -107,6 +106,7 @@ export class TransferComponent implements OnInit {
     }
   }
 
+  // We don't want our amount to be bigger that balance.
   private amountTooBigValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const fromAccount = control.get('fromAccount')?.value;
@@ -122,6 +122,7 @@ export class TransferComponent implements OnInit {
     };
   }
 
+  // No need to transfer money around 1 account :)
   private accountsNotEqualValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const fromAccount = control.get('fromAccount')?.value;

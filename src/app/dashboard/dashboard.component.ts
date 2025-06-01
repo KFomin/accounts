@@ -9,7 +9,7 @@ import {
 } from '@angular/material/table';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatCardTitleGroup} from '@angular/material/card';
 import {MatButton, MatIconButton} from '@angular/material/button';
-import {AsyncPipe, CurrencyPipe, NgIf, NgTemplateOutlet} from '@angular/common';
+import {AsyncPipe, CurrencyPipe, NgTemplateOutlet} from '@angular/common';
 import {Account, ApiService} from '../api.service';
 import {BehaviorSubject} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (document.documentElement.clientWidth < 1280) {
+    if (window.innerWidth < 1280) {
       this.viewType.next('mobile');
     }
     this.apiService.accounts.subscribe(accounts => {

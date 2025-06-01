@@ -33,10 +33,6 @@ export class ApiService {
     return this.http.get<Account[]>(`${this.apiUrl}/accounts`);
   }
 
-  getAccount(accountId: number): Observable<Account> {
-    return this.http.get<Account>(`${this.apiUrl}/accounts/${accountId}`);
-  }
-
   getTransactions(accountId: number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.apiUrl}/transactions?accountId=${accountId}`);
   }
@@ -49,10 +45,7 @@ export class ApiService {
     return this.http.put(`${this.apiUrl}/accounts/${account.id}`, account);
   }
 
-  deleteAccount(accountId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/accounts/${accountId}`);
-  }
-
+  // Here I immitate backend behaviour, by creating/updating stuff in our database
   doTransfer(fromAccount: Account, toAccount: Account, amount: number, description: string): Observable<Account[]> {
     const nowDate = new Date(Date.now());
     const transactionData = {
@@ -67,6 +60,7 @@ export class ApiService {
     this.updateAccount(fromAccount).subscribe(() => {
       console.log('From account updated:', fromAccount);
     });
+
     this.updateAccount(toAccount).subscribe(() => {
       console.log('To account updated:', toAccount);
     });
@@ -74,6 +68,7 @@ export class ApiService {
     this.createTransaction({ ...transactionData, accountId: fromAccount.id, type: 'debit' }).subscribe(() => {
       console.log('Debit transaction created');
     });
+
     this.createTransaction({ ...transactionData, accountId: toAccount.id, type: 'credit' }).subscribe(() => {
       console.log('Credit transaction created');
     });
