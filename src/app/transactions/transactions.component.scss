@@ -1,0 +1,7 @@
+.cell {
+  @media (max-width: 1280px) {
+    max-width: 6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

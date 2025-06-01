@@ -57,7 +57,10 @@ export class TransferComponent implements OnInit {
       amount: [0, [Validators.required, Validators.min(0)]],
       description: ['', Validators.required]
     }, {
-      validators: this.accountsNotEqualValidator()
+      validators: [
+        this.accountsNotEqualValidator(),
+        this.amountTooBigValidator()
+      ]
     });
   }
 
@@ -102,6 +105,21 @@ export class TransferComponent implements OnInit {
           });
       }
     }
+  }
+
+  private amountTooBigValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const fromAccount = control.get('fromAccount')?.value;
+      const amount = control.get('amount')?.value;
+
+      if (fromAccount && amount && fromAccount.balance < amount) {
+        return {
+          amountTooBig: true
+        };
+      }
+
+      return null;
+    };
   }
 
   private accountsNotEqualValidator(): ValidatorFn {

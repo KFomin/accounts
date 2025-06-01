@@ -38,7 +38,6 @@ import {MatIcon} from '@angular/material/icon';
     AsyncPipe,
     MatIcon,
     MatIconButton,
-    NgIf,
     NgTemplateOutlet,
   ],
   templateUrl: './dashboard.component.html',
@@ -55,7 +54,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {
   }
 
@@ -77,7 +76,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.window.innerWidth < 1280) {
+    if (document.documentElement.clientWidth < 1280) {
       this.viewType.next('mobile');
     }
     this.apiService.accounts.subscribe(accounts => {
@@ -92,7 +91,4 @@ export class DashboardComponent implements OnInit {
   transferMoneyClicked(accountId: number): void {
     this.router.navigate(['/transfer'], {queryParams: {fromAccountId: accountId}});
   }
-
-  protected readonly document = document;
-  protected readonly window = window;
 }

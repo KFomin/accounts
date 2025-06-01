@@ -42,9 +42,13 @@
       <div *ngIf="transferForm.get('amount')?.hasError('min')" class="error-message">
         Amount must be greater than or equal to 0.
       </div>
-      
+
       <div *ngIf="transferForm.hasError('accountsEqual')" class="error-message">
-        From Account и To Account can't be same
+        From Account и To Account can't be same.
+      </div>
+
+      <div *ngIf="transferForm.hasError('amountTooBig')" class="error-message">
+        Amount can't be bigger than balance.
       </div>
 
       <div class="buttons">
