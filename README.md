@@ -1,9 +1,9 @@
 ## 🏦 Banking Web App with Angular 🚀
 Hi there! 👋 This is a web app for managing bank accounts. It has just 3 pages:
 
-Bank accounts 🏦
-Transactions (specific to each account) 💳
-Transfer (for moving money between accounts) 💸
+##### Bank accounts 🏦
+##### Transactions (specific to each account) 💳
+##### Transfer (for moving money between accounts) 💸
 ### 🚀 How to Run the Project Locally?
 To run the app locally, clone the repository to your machine, go to the folder with the cloned code, and run in the terminal:
 
