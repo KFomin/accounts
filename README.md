@@ -49,8 +49,8 @@ No issues with the visual part—it’s just 2 dropdown selects and 2 fields (pl
 
 I added form validation using Angular form validation and wrote 2 custom validations:
 
-To make sure the accounts in the selects are different.
-To make sure the amount isn’t greater than the balance of the "From" account. ✅
+##### 1) To make sure the accounts in the selects are different.
+##### 2) To make sure the amount isn’t greater than the balance of the "From" account. ✅
 ### 3️⃣ Transactions Page 💳
 Just a table of transactions for a specific account. We get the account ID from the route parameters.
 
