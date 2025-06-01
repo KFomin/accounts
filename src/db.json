@@ -4,13 +4,13 @@
       "id": "1",
       "name": "Main Account",
       "iban": "DE89370400440532013000",
-      "balance": 1067
+      "balance": 944
     },
     {
       "id": "2",
       "name": "Savings Account",
       "iban": "DE89370400440532013001",
-      "balance": 4332
+      "balance": 4455
     },
     {
       "id": "3",
@@ -201,6 +201,22 @@
       "date": "2025-06-01T20:09:58.621Z",
       "description": "asfasf",
       "amount": 12,
+      "accountId": "2",
+      "type": "credit"
+    },
+    {
+      "id": "750f",
+      "date": "2025-06-01T21:27:18.099Z",
+      "description": "afasfsaf",
+      "amount": 123,
+      "accountId": "1",
+      "type": "debit"
+    },
+    {
+      "id": "7e78",
+      "date": "2025-06-01T21:27:18.099Z",
+      "description": "afasfsaf",
+      "amount": 123,
       "accountId": "2",
       "type": "credit"
     }
